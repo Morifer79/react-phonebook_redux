@@ -1,38 +1,27 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { delContact, showContacts } from 'redux/globalSlice';
+import { nanoid } from 'nanoid';
 import {
   ContactsList,
   ContactsListItem,
   ButtonDel,
 } from './ContactList.styled';
-import PropTypes from 'prop-types';
 
-export const ContactList = ({ contacts, onDelContact }) => {
+export const ContactList = () => {
+  const filterContacts = useSelector(showContacts);
+  const dispatch = useDispatch();
+  const removeContact = name => dispatch(delContact(name));
+
   return (
     <ContactsList>
-      {contacts.map(contact => (
-        <ContactsListItem key={contact.id}>
-          {contact.name + ' : ' + contact.number}
-          {
-            <ButtonDel
-              type="button"
-              name="delete"
-              onClick={() => onDelContact(contact.id)}
-            >
-              Delete
-            </ButtonDel>
-          }
+      {filterContacts.map(({ name, number }) => (
+        <ContactsListItem key={nanoid()}>
+          {name}: {number}
+          <ButtonDel type="button" onClick={() => removeContact(name)}>
+            Delete
+          </ButtonDel>
         </ContactsListItem>
       ))}
     </ContactsList>
   );
-};
-
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    })
-  ),
-  onDelContact: PropTypes.func.isRequired,
 };

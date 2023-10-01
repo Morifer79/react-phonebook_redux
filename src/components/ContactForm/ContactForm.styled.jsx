@@ -1,15 +1,15 @@
+import styled from 'styled-components';
 import { ErrorMessage } from 'formik';
-import styled from '@emotion/styled';
 import { Form, Field } from 'formik';
 
 export const FormWrapper = styled.div`
-  margin-bottom: 10px;
+  margin-bottom: ${p => p.theme.spacing(5)};
   padding: 40px 30px;
 
   height: auto;
   width: 40%;
-  border-radius: 12px;
-  box-shadow: 12px 12px 20px rgba(0, 0, 0, 0.32),
+  border-radius: ${p => p.theme.radii.lg};
+  box-shadow: 12px 12px 20px ${p => p.theme.colors.shadow},
     -13px -8px 20px 0px rgba(84, 46, 197, 0.2);
 
   display: flex;
@@ -26,17 +26,18 @@ export const FormStyled = styled(Form)`
 `;
 
 export const InputStyled = styled(Field)`
-  margin: 10px 0;
-  padding: 10px;
+  margin-top: ${p => p.theme.spacing(5)};
+  margin-bottom: ${p => p.theme.spacing(5)};
+  padding: ${p => p.theme.spacing(5)};
 
   width: 100%;
   border: none;
-  border-radius: 8px;
+  border-radius: ${p => p.theme.radii.sm};
   background: none;
-  box-shadow: inset 6px 6px 8px rgba(0, 0, 0, 0.32),
+  box-shadow: inset 6px 6px 8px ${p => p.theme.colors.shadow},
     inset -7px -7px 14px 0px rgba(84, 56, 197, 0.2);
   font-size: 18px;
-  color: white;
+  color: ${p => p.theme.colors.white};
   outline: none;
 `;
 
@@ -48,32 +49,33 @@ export const Label = styled.label`
 
 export const ButtonAdd = styled.button`
   padding: 10px 50px;
-  margin-top: 20px;
+  margin-top: ${p => p.theme.spacing(10)};
 
   cursor: pointer;
   font-size: 20px;
   letter-spacing: 2px;
   border: none;
-  border-radius: 8px;
+  border-radius: ${p => p.theme.radii.sm};
   background: none;
   color: rgba(255, 255, 255, 0.63);
-  box-shadow: 7px 6px 9px 0px rgba(0, 0, 0, 0.32),
+  box-shadow: 7px 6px 9px 0px ${p => p.theme.colors.shadow},
     -5px -4px 14px 0px rgba(84, 56, 197, 0.2);
-  transition: color 250ms linear, background-color 250ms linear;
+  transition: color ${p => p.theme.transition},
+    background-color ${p => p.theme.transition};
 
-  :hover {
-    color: #90ee90;
-    background-color: rgb(22, 9, 52);
+  &:hover {
+    color: ${p => p.theme.colors.lawngreen};
+    background-color: ${p => p.theme.colors.hoverbtn};
   }
 
   :active {
-    box-shadow: inset 7px 6px 9px 0px rgba(0, 0, 0, 0.32),
+    box-shadow: inset 7px 6px 9px 0px ${p => p.theme.colors.shadow},
       inset -5px -4px 14px 0px rgba(84, 56, 197, 0.2);
     color: rgba(255, 255, 255, 0.24);
   }
 `;
 
 export const ErrMsg = styled(ErrorMessage)`
-  color: yellow;
+  color: ${p => p.theme.colors.yellow};
   font-size: 16px;
 `;

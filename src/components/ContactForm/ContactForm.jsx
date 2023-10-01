@@ -6,8 +6,11 @@ import {
   InputStyled,
   Label,
 } from 'components/ContactForm/ContactForm.styled';
-import { Formik } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
+import { addNewContact, getContacts } from 'redux/globalSlice';
+import { useEffect } from 'react';
 import { nanoid } from 'nanoid';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 const SignupSchema = Yup.object().shape({
@@ -29,36 +32,55 @@ const SignupSchema = Yup.object().shape({
     ),
 });
 
-export const ContactForm = ({ newContact }) => {
-  const handleSubmit = (values, { resetForm }) => {
-    newContact(values);
-    resetForm();
-  };
+export const ContactForm = () => {
+  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
 
-  const initialValues = {
-    name: '',
-    number: '',
+  useEffect(() => {
+    window.localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
+
+  const handleSubmit = (person, { resetForm }) => {
+    const existName = contacts.some(
+      ({ name }) => name.toLowerCase() === person.name.toLowerCase()
+    );
+
+    const existNumber = contacts.some(({ number }) => number === person.number);
+
+    if (existName) {
+      alert('A contact with this name already in contacts');
+      return;
+    }
+
+    if (existNumber) {
+      alert('A contact with this number already in contacts');
+      return;
+    }
+
+    const completeContact = { ...person, id: nanoid() };
+    dispatch(addNewContact(completeContact));
+    resetForm();
   };
 
   return (
     <FormWrapper>
       <Formik
-        initialValues={initialValues}
+        initialValues={{ name: '', number: '' }}
         onSubmit={handleSubmit}
         validationSchema={SignupSchema}
       >
         <FormStyled autoComplete="off">
-          <Label id={nanoid()}>
+          <Label>
             Name
             <InputStyled type="text" name="name" required />
             <ErrMsg name="name" component="div" />
           </Label>
-          <Label id={nanoid()}>
+          <Label>
             Number
             <InputStyled type="tel" name="number" required />
             <ErrMsg name="number" component="div" />
           </Label>
-          <ButtonAdd type="submit">Add contacts</ButtonAdd>
+          <ButtonAdd type="submit">Add contact</ButtonAdd>
         </FormStyled>
       </Formik>
     </FormWrapper>
