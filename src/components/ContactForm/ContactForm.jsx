@@ -8,7 +8,6 @@ import {
 } from 'components/ContactForm/ContactForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewContact, getContacts } from 'redux/globalSlice';
-import { useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -35,10 +34,6 @@ const SignupSchema = Yup.object().shape({
 export const ContactForm = () => {
   const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    window.localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
 
   const handleSubmit = (person, { resetForm }) => {
     const existName = contacts.some(
