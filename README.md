@@ -16,7 +16,8 @@ This project was created using [Create React App](https://github.com/facebook/cr
   <img src="https://github.com/devicons/devicon/blob/master/icons/figma/figma-original.svg" title="Figma" alt="Figma" width="40" height="40"/>&nbsp;
   <img src="https://github.com/devicons/devicon/blob/master/icons/vscode/vscode-original-wordmark.svg" title="VSCode" alt="VSCode" width="40" height="40"/>&nbsp;  
 
-  Refactoring an application using Redux
+  Refactoring an application using Redux  
+  Themization and GlobalStyles were used
 
 ※ styled-components: Styling library for React components.  
 ※ react-redux: to use Redux and its bundling with React.  
